@@ -1,5 +1,6 @@
 from telegram import ReplyKeyboardMarkup
 
+
 reply_keyboard_selection = [['Present Simple'],
                             ['Present Continuous'],
                             ['Present Perfect'],
@@ -14,21 +15,6 @@ reply_keyboard_selection = [['Present Simple'],
                             ['Future Continuous'],
                             ['Future Perfect'],
                             ['Future Perfect Continuous']]
-
-reply_keyboard_selection_test = [['1) Present Simple'],
-                                 ['2) Present Continuous'],
-                                 ['3) Present Perfect'],
-                                 ['4) Present Perfect Continuous'],
-
-                                 ['5) Past Simple'],
-                                 ['6) Past Continuous'],
-                                 ['7) Past Perfect'],
-                                 ['8) Past Perfect Continuous'],
-
-                                 ['9) Future Simple'],
-                                 ['10) Future Continuous'],
-                                 ['11) Future Perfect'],
-                                 ['12) Future Perfect Continuous']]
 
 
 async def present_simple_photo(update):
@@ -93,15 +79,11 @@ async def future_perfect_continuous_photo(update):
 
 async def time1(update, context):
     global hope_executed
-    global hope_executed1
-    global hope_executed2
     markup = ReplyKeyboardMarkup(reply_keyboard_selection)
     await update.message.reply_text(
         'Выберите время, которое хотите изучить',
         reply_markup=markup)
     hope_executed = False
-    hope_executed1 = False
-    hope_executed2 = False
 
 
 async def present_simple(update, context):
@@ -710,35 +692,3 @@ async def result(update, context):
 
     if update.message.text == 'Future Perfect Continuous':
         await future_perfect_continuous(update, context)
-
-
-async def check_tense_1(update, context):
-    global hope_executed
-    hope_executed = True
-    # Получаем время, выбранное пользователем
-    await update.message.reply_text('Вам дано предложение, поймите какое это время, выберите из списка\n'
-                                    'Если после нажатия кнопки ничего не выводится, то ответ не правильный. Продолжайте'
-                                    ' попытки')
-    markup = ReplyKeyboardMarkup(reply_keyboard_selection_test)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text='He always eats a healthy breakfast before going to work', reply_markup=markup)
-
-
-async def check_tense_present_simple(update, context):
-    global hope_executed
-    if hope_executed and update.message.text == '1) Present Simple':
-        await update.message.reply_text('Верно!\n'
-                                        'Перевод - (Он всегда завтракает здоровой пищей перед тем '
-                                        'как идти на работу.)\n'
-                                        '\n'
-                                        'Если хотите продолжить - нажмите /next1\n'
-                                        'Если хотите выйти - нажмите /start')
-
-
-async def test_next1(update, context):
-    await update.message.reply_text('Тесты по временам\n'
-                                    'Нажмите /next для продолжения')
-
-hope_executed = False
-hope_executed1 = False
-hope_executed2 = False
